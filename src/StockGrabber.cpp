@@ -4,6 +4,7 @@
 
 StockGrabber::StockGrabber()
 {
+    PNERROR(low, "Created stock grabber");
 }
 
 void StockGrabber::registerObserver(Observer &toRegister)
@@ -46,5 +47,13 @@ void StockGrabber::setAAPLPrice(double newAAPLPrice)
 void StockGrabber::setGOOGPrice(double newGOOGPrice)
 {
     this->googPrice = newGOOGPrice;
+    notifyObserver();
+}
+
+void StockGrabber::incrementPrices(double delta)
+{
+    this->ibmPrice += delta;
+    this->aaplPrice += delta;
+    this->googPrice += delta;
     notifyObserver();
 }

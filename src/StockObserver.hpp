@@ -4,19 +4,23 @@
 #include "Observer.hpp"
 #include "Subject.hpp"
 
-class StockObserver : Observer
+class StockObserver : public Observer
 {
   private:
     double ibmPrice;
     double aaplPrice;
     double googPrice;
-    static const int observerIDTracker = 0;
+    static int observerIDTracker;
     int observerID;
-    Subject *stockGrabber;
+    std::shared_ptr<Subject> stockGrabber;
 
   public:
-    StockObserver(Subject *stockGrabber);
-    void update(double ibmPrice, double aaplPrice, double googPrice) const;
+    StockObserver(std::shared_ptr<Subject> myStockGrabber);
+    void update(double ibmPrice, double aaplPrice, double googPrice);
+    void printPrices();
+    bool operator==(Observer &);
+    int getID();
+    ~StockObserver();
 };
 
 #endif // HPP_STOCKOBSERVER

@@ -4,7 +4,7 @@
 #include <vector>
 #include "Subject.hpp"
 
-class StockGrabber : Subject
+class StockGrabber : public Subject
 {
 private:
   std::vector<std::reference_wrapper<Observer>> observers;
@@ -20,6 +20,7 @@ public:
   void setIBMPrice(double newIBMPrice);
   void setAAPLPrice(double newAAPLPrice);
   void setGOOGPrice(double newGOOGPrice);
+  void incrementPrices(double delta);
 };
 
 #endif // HPP_STOCKGRABBER
