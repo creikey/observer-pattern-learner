@@ -6,16 +6,16 @@ StockGrabber::StockGrabber()
 {
 }
 
-void StockGrabber::registerObserver(const Observer *toRegister)
+void StockGrabber::registerObserver(Observer &toRegister)
 {
-    observers.push_back(toRegister);
+    observers.push_back(std::ref(toRegister));
 }
 
-void StockGrabber::unregisterObserver(const Observer *toUnregister)
+void StockGrabber::unregisterObserver(Observer &toUnregister)
 {
     for (auto i = observers.begin(); i != observers.end(); i++)
     {
-        if (*i == toUnregister)
+        if ((*i).get() == toUnregister)
         {
             NERROR(stderr, low, "Successfully unregistered observer");
             observers.erase(i);
@@ -29,7 +29,7 @@ void StockGrabber::notifyObserver()
 {
     for (auto i = observers.begin(); i != observers.end(); i++)
     {
-        (*i)->update(ibmPrice, aaplPrice, googPrice);
+        (*i).get().update(ibmPrice, aaplPrice, googPrice);
     }
 }
 
